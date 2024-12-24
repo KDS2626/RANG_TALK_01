@@ -47,7 +47,6 @@
     word-wrap: break-word; /* 긴 단어가 잘리거나 줄바꿈 되게 설정 */
 }
 
-
 .me::after, .other::after {
     content: "";
     position: absolute;
@@ -68,10 +67,6 @@
     left: -10px;
     top: 10px;
 }
-
-
-
-
     </style>
 </head>
 <body>
@@ -84,7 +79,7 @@
     <button id="sendButton" disabled style="width: 60px; height: 38.9px;">전송</button>
 
     <script>
-        const socket = new WebSocket("ws://localhost:8080");
+        const socket = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host);
         const messageInput = document.getElementById("messageInput");
         const nicknameInput = document.getElementById("nicknameInput");
         const nicknameSubmit = document.getElementById("nicknameSubmit");
