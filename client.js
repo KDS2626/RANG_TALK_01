@@ -1,5 +1,5 @@
-// WebSocket 서버에 연결
-const socket = new WebSocket("ws://localhost:8080");
+// WebSocket 서버 URL 동적으로 설정
+const socket = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host);
 
 let nickname = null; // 닉네임 변수
 
@@ -7,7 +7,6 @@ function getCurrentTime() {
     const now = new Date();
     return now.toLocaleString();  // 서버 시간 반환: 예: "2024-12-21 15:00:00"
 }
-
 
 // 채팅 메시지 출력 함수
 function displayMessage(message, sender) {
@@ -26,8 +25,6 @@ function displayMessage(message, sender) {
 
     messageContainer.scrollTop = messageContainer.scrollHeight;  // 항상 맨 아래로 스크롤
 }
-
-
 
 // WebSocket 연결 열림 시
 socket.onopen = function() {
@@ -60,10 +57,8 @@ socket.onmessage = function(event) {
     }
 };
 
-
 // 메시지 전송 함수
 function sendMessage() {
-    console.log(222);
     const messageInput = document.getElementById("messageInput");
     let message = messageInput.value.trim();
 
@@ -82,8 +77,6 @@ function sendMessage() {
     // 입력란 비우기
     messageInput.value = "";
 }
-
-
 
 // 전송 버튼 클릭 시 메시지 전송
 document.getElementById("sendButton").addEventListener("click", sendMessage);
